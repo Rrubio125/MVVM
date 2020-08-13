@@ -7,28 +7,44 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sibisoft.ejerciciorecycler.R
 import java.security.AccessControlContext
 
-class TestAdapter(context: Context) : RecyclerView.Adapter<ItemViewHolder>() {
+class TestAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val layoutInflater = LayoutInflater.from(context)
-    private var itemsList = listOf<Alumno>()
+    private var itemsList = listOf<Grupo>()
 
-    fun setData(list: List<Alumno>){
+    fun setData(list: List<Grupo>) {
         this.itemsList = list
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val view = layoutInflater.inflate(R.layout.item_layout, parent, false)
-        return ItemViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val view = layoutInflater.inflate(R.layout.group_layout, parent, false)
+        return GroupViewHolder(view)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
     }
 
     override fun getItemCount(): Int {
-        return itemsList.size
+        var count = 0
+        itemsList.forEach {
+            count++
+            it.listaAlumno.forEach {
+                count++
+            }
+        }
+        return count
     }
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val alumno = itemsList[position]
         holder.bind(alumno)
+
+    }
+
+    companion object {
+
     }
 
 }

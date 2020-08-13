@@ -42,10 +42,23 @@ class MainFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        val alumnosCursoAndroid = mutableListOf<Alumno>()
-        alumnosCursoAndroid.add(Alumno("Chacho"))
-        alumnosCursoAndroid.add(Alumno("Thor"))
-        adapter?.setData(alumnosCursoAndroid)
+        val gruposAndroid = mutableListOf<Grupo>()
+        val listaAlumnos1 = mutableListOf<Alumno>()
+        val listaAlumnos2 = mutableListOf<Alumno>()
+        listaAlumnos1.add(Alumno("Emilio"))
+        listaAlumnos1.add(Alumno("David"))
+        listaAlumnos1.add(Alumno("Ricardo"))
+        listaAlumnos1.add(Alumno("Eduardo"))
+        listaAlumnos1.add(Alumno("Manolo"))
+        listaAlumnos2.add(Alumno("Emilio2"))
+        listaAlumnos2.add(Alumno("David2"))
+        listaAlumnos2.add(Alumno("Ricardo2"))
+        listaAlumnos2.add(Alumno("Eduardo2"))
+        listaAlumnos2.add(Alumno("Manolo2"))
+
+        gruposAndroid.add(Grupo("1er Grupo Android", listaAlumnos1))
+        gruposAndroid.add(Grupo("2do Grupo Android", listaAlumnos2))
+        adapter?.setData(gruposAndroid)
     }
 
 
