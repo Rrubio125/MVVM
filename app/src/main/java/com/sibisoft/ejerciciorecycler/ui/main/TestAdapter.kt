@@ -23,7 +23,15 @@ class TestAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
+        var count = 0
+        itemsList.forEach {
+           if(position == count) return GROUP_TYPE
+            count++
+            it.listaAlumno.forEach {
+                if(position==count) return STUDENT_YPE
+            }
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -44,6 +52,9 @@ class TestAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     companion object {
+
+        const val GROUP_TYPE = 1
+        const val STUDENT_YPE = 2
 
     }
 

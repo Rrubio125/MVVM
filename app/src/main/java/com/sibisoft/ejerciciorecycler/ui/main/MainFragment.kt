@@ -6,10 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sibisoft.ejerciciorecycler.R
 import kotlinx.android.synthetic.main.main_fragment.*
+import kotlin.random.Random
 
 class MainFragment : Fragment() {
 
@@ -19,7 +20,11 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private val studentObserver = Observer<Alumno>{
+
+    }
+
+    private lateinit var viewModel: ClassroomViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -36,26 +41,21 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(ClassroomViewModel::class.java)
         // TODO: Use the ViewModel
+        val listOfStudent1 = viewModel.completeListOfStudent(Random.nextInt(0, 10))
+        val groupOfStudent1 = viewModel.createClassroom(listOfStudent1)
+        val list2 = viewModel.completeListOfStudent()
+        val grupoAndroid =
+
     }
 
     override fun onResume() {
         super.onResume()
+        viewModel.createStudent("Ricardo")
         val gruposAndroid = mutableListOf<Grupo>()
         val listaAlumnos1 = mutableListOf<Alumno>()
         val listaAlumnos2 = mutableListOf<Alumno>()
-        listaAlumnos1.add(Alumno("Emilio"))
-        listaAlumnos1.add(Alumno("David"))
-        listaAlumnos1.add(Alumno("Ricardo"))
-        listaAlumnos1.add(Alumno("Eduardo"))
-        listaAlumnos1.add(Alumno("Manolo"))
-        listaAlumnos2.add(Alumno("Emilio2"))
-        listaAlumnos2.add(Alumno("David2"))
-        listaAlumnos2.add(Alumno("Ricardo2"))
-        listaAlumnos2.add(Alumno("Eduardo2"))
-        listaAlumnos2.add(Alumno("Manolo2"))
-
         gruposAndroid.add(Grupo("1er Grupo Android", listaAlumnos1))
         gruposAndroid.add(Grupo("2do Grupo Android", listaAlumnos2))
         adapter?.setData(gruposAndroid)
