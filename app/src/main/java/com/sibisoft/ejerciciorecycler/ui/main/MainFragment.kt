@@ -10,14 +10,13 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sibisoft.ejerciciorecycler.R
 import kotlinx.android.synthetic.main.main_fragment.*
-import kotlin.random.Random
 
 class MainFragment : Fragment() {
 
     private var adapter: TestAdapter? = null
     private lateinit var viewModel: ClassroomViewModel
 
-    private val classroomObserver = Observer<List<Grupo>> {
+    private val classroomObserver = Observer<List<Group>> {
         adapter?.setData(it)
     }
 
@@ -34,7 +33,7 @@ class MainFragment : Fragment() {
         recycler_view.adapter = adapter
         recycler_view.layoutManager = LinearLayoutManager(view.context)
         btn_random.setOnClickListener {
-            viewModel.createRandomGroup()
+            viewModel.createRandomGroups()
         }
 
     }

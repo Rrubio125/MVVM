@@ -2,65 +2,64 @@ package com.sibisoft.ejerciciorecycler.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlin.math.floor
 import kotlin.random.Random
 
 class ClassroomViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 
-    private val classroomMutableLiveData = MutableLiveData<List<Grupo>>()
+    private val classroomMutableLiveData = MutableLiveData<List<Group>>()
     val classroomLiveData = classroomMutableLiveData
 
-    fun createRandomGroup() {
-        val gruposAndroid = mutableListOf<Grupo>()
-        val numeroDeGruposRandom = Random.nextInt(1, 10)
+    fun createRandomGroups() {
+        val groups = mutableListOf<Group>()
+        val numberOfGroup = Random.nextInt(1, 10)
 
-        for (i in 1..numeroDeGruposRandom) {
-            gruposAndroid.add(generarGrupoRandom())
+        for (i in 1..numberOfGroup) {
+            groups.add(createOneNewRandomGroup())
         }
 
-        classroomMutableLiveData.postValue(gruposAndroid)
+        classroomMutableLiveData.postValue(groups)
     }
 
-    private fun generarGrupoRandom(): Grupo {
-        return Grupo(generarNombreDeGrupoRandom(), generarListaDeAlumnoRandom(), generarProfesor())
+    private fun createOneNewRandomGroup(): Group {
+        return Group(createRandomGruopNames(), createRandomStudentList(), createTeacher())
     }
 
-    private fun generarProfesor(): MutableList<Teacher> {
-        val listaDeProfesores = mutableListOf<Teacher>()
-        val numeroDeProfesores = 2
-        for (i in 1..numeroDeProfesores) {
-            listaDeProfesores.add(Teacher( "$i Teacher " + generarNombresAleatorios()))}
-        return listaDeProfesores
+    private fun createTeacher(): MutableList<Teacher> {
+        val listOfTeachers = mutableListOf<Teacher>()
+        val numberOfTeachers = 2
+        for (i in 1..numberOfTeachers) {
+            listOfTeachers.add(Teacher( "$i Teacher " + createRandomNames()))}
+        return listOfTeachers
     }
 
-    private fun generarListaDeAlumnoRandom(): MutableList<Alumno> {
-        val listaAlumnos = mutableListOf<Alumno>()
-        val numeroDeAlumnosEnElGrupo = Random.nextInt(1, 15)
+    private fun createRandomStudentList(): MutableList<Student> {
+        val listOfStudent = mutableListOf<Student>()
+        val numberOfStudentInTheGroup = Random.nextInt(1, 15)
 
-        for (i in 1..numeroDeAlumnosEnElGrupo) {
-            listaAlumnos.add(
-                Alumno(
-                    generarNombresAleatorios(),
-                    crearBoleta(),
-                    generarCalificacion()
+        for (i in 1..numberOfStudentInTheGroup) {
+            listOfStudent.add(
+                Student(
+                    createRandomNames(),
+                    createIdNumber(),
+                    createGrades()
                 )
             )
         }
 
-        return listaAlumnos
+        return listOfStudent
     }
 
-    private fun generarCalificacion(): Int {
+    private fun createGrades(): Int {
         return Random.nextInt(0, 10)
     }
 
-    private fun crearBoleta(): Int {
+    private fun createIdNumber(): Int {
         return Random.nextInt(2014630000, 2014639999)
     }
 
-    private fun generarNombresAleatorios(): String {
-        val nombres = arrayOf(
+    private fun createRandomNames(): String {
+        val firstName = arrayOf(
             "Andrea ",
             "David ",
             "Joaquin ",
@@ -82,7 +81,7 @@ class ClassroomViewModel : ViewModel() {
             "Pilar ",
             "Teresa "
         )
-        val apellidos = arrayOf(
+        val secondName = arrayOf(
             "Gomez",
             "Guerrero",
             "Cardenas",
@@ -102,7 +101,7 @@ class ClassroomViewModel : ViewModel() {
             "Becerra",
             "Tapia"
         )
-        return nombres[Random.nextInt(0, 19)] + apellidos[Random.nextInt(0, 17)]
+        return firstName[Random.nextInt(0, 19)] + secondName[Random.nextInt(0, 17)]
     }
 
 //    private fun generarNombreRandom() {
@@ -113,7 +112,7 @@ class ClassroomViewModel : ViewModel() {
 //        var generarNombresAleatorios : String[] (cantidad: Int)
 //    }
 
-    private fun generarNombreDeGrupoRandom(): String {
+    private fun createRandomGruopNames(): String {
         return "Grupo " + Random.nextInt(1, 10) + " de Android"
     }
 

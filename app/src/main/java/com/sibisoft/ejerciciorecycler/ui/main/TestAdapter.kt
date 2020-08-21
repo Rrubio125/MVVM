@@ -5,14 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sibisoft.ejerciciorecycler.R
-import java.security.AccessControlContext
 
 class TestAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val layoutInflater = LayoutInflater.from(context)
-    private var itemsList = listOf<Grupo>()
+    private var itemsList = listOf<Group>()
 
-    fun setData(list: List<Grupo>) {
+    fun setData(list: List<Group>) {
         this.itemsList = list
         notifyDataSetChanged()
     }
@@ -44,7 +43,7 @@ class TestAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
                 if (position==count) return TEACHER_TYPE
                 count++
             }
-            grupo.listaAlumno.forEach { alumno ->               // alumno = 0
+            grupo.listOfStudent.forEach { alumno ->               // alumno = 0
                 if(position == count) return STUDENT_TYPE
                 count++
             }
@@ -55,12 +54,12 @@ class TestAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
 
     override fun getItemCount(): Int {
         var count = 0
-        itemsList.forEach { grupo ->
+        itemsList.forEach { group ->
             count++
-            repeat(grupo.teacher.size) {
+            repeat(group.teacher.size) {
                 count++
             }
-            grupo.listaAlumno.forEach { alumno ->
+            group.listOfStudent.forEach { student ->
                 count++
             }
         }
@@ -71,10 +70,10 @@ class TestAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
         val item = getItemInList(position)
         when (holder) {
             is GroupViewHolder -> {
-                holder.bind(item as Grupo)
+                holder.bind(item as Group)
             }
             is StudentViewHolder -> {
-                holder.bindStudent(item as Alumno)
+                holder.bindStudent(item as Student)
             }
             is TeacherViewHolder -> {
                 holder.bindTeacher(item as Teacher)
@@ -91,7 +90,7 @@ class TestAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
                 if (position == count) return it
                 count++
             }
-            grupo.listaAlumno.forEach { alumno ->
+            grupo.listOfStudent.forEach { alumno ->
                 if(position == count) return alumno
                 count++
             }
