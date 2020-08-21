@@ -18,27 +18,37 @@ class TestAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = layoutInflater.inflate(R.layout.group_layout, parent, false)
-        return GroupViewHolder(view)
+        return when (viewType) {
+            GROUP_TYPE -> {
+                val view = layoutInflater.inflate(R.layout.group_layout, parent, false)
+                GroupViewHolder(view)
+            }
+            STUDENT_TYPE -> {
+                val view = layoutInflater.inflate(R.layout.alumn_layout, parent, false)
+                StudentViewHolder(view)
+            }
+            else -> throw IndexOutOfBoundsException()
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
-        var count = 0
-        itemsList.forEach {
-           if(position == count) return GROUP_TYPE
+        var count = 0                                           // count = 0
+        itemsList.forEach { grupo ->                            // position = 0
+            if (position == count) return GROUP_TYPE            // grupo = 0
             count++
-            it.listaAlumno.forEach {
-                if(position==count) return STUDENT_YPE
+            grupo.listaAlumno.forEach { alumno ->               // alumno = 0
+                if(position == count) return STUDENT_TYPE
+                count++
             }
         }
-
+        throw IndexOutOfBoundsException()
     }
 
     override fun getItemCount(): Int {
         var count = 0
-        itemsList.forEach {
+        itemsList.forEach { grupo ->
             count++
-            it.listaAlumno.forEach {
+            grupo.listaAlumno.forEach { alumno ->
                 count++
             }
         }
@@ -46,16 +56,33 @@ class TestAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val alumno = itemsList[position]
-        holder.bind(alumno)
+        val item = getItemInList(position)
+        when (holder) {
+            is GroupViewHolder -> {
+                holder.bind(item as Grupo)
+            }
+            is StudentViewHolder -> {
+                holder.bindStudent(item as Alumno)
+            }
+        }
+    }
 
+    private fun getItemInList(position: Int) : Any {
+        var count = 0
+        itemsList.forEach { grupo ->
+            if (position == count) return grupo
+            count++
+            grupo.listaAlumno.forEach { alumno ->
+                if(position == count) return alumno
+                count++
+            }
+        }
+        throw IndexOutOfBoundsException()
     }
 
     companion object {
-
         const val GROUP_TYPE = 1
-        const val STUDENT_YPE = 2
-
+        const val STUDENT_TYPE = 2
     }
 
 }
