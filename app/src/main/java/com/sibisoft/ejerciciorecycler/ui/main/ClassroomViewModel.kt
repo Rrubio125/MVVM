@@ -44,7 +44,7 @@ class ClassroomViewModel : ViewModel() {
     }
 
     private fun generarNombreDeGrupoRandom(): String {
-        return "Grupo " + Random.nextInt(1, 10) + "de Android"
+        return "Grupo " + Random.nextInt(1, 10) + " de Android"
     }
 
 
