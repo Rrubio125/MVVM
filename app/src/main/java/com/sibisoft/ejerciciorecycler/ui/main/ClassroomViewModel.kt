@@ -10,43 +10,43 @@ class ClassroomViewModel : ViewModel() {
     private val classroomMutableLiveData = MutableLiveData<List<Grupo>>()
     val classroomLiveData = classroomMutableLiveData
 
+    fun createRandomGroup() {
+        val gruposAndroid = mutableListOf<Grupo>()
+        val numeroDeGruposRandom = Random.nextInt(1, 10)
 
-//    fun createStudent(nombre: String) {
-//        studentMutableName.add(Alumno(nombre))
-//    }
-//
-//    fun completeListOfStudent(capacity: Int): {
-//        //if(capacity==0) val newcapacity:Int = Random.nextInt(0,15)
-//        //else
-//        var count = 0
-//        do {
-//            listOfStudent.add(Alumno(getRandomString(Random.nextInt(4, 8))))
-//            count++
-//
-//        } while (count <= capacity)
-//
-//    }
-//
-//    fun createClassroom(listOfStudent: MutableList<Alumno>) {
-//        classroom.add(Grupo(getRandomString(Random.nextInt(4, 10)), listOfStudent))
-//    }
+        for (i in 1..numeroDeGruposRandom) {
+            gruposAndroid.add(generarGrupoRandom())
+        }
 
-    fun getRandomString(length: Int): String {
+        classroomMutableLiveData.postValue(gruposAndroid)
+    }
+
+    private fun generarGrupoRandom(): Grupo {
+        return Grupo(generarNombreDeGrupoRandom(), generarListaDeAlumnoRandom())
+    }
+
+    private fun generarListaDeAlumnoRandom(): MutableList<Alumno> {
+        val listaAlumnos = mutableListOf<Alumno>()
+        val numeroDeAlumnosEnElGrupo = Random.nextInt(1, 15)
+
+        for (i in 1..numeroDeAlumnosEnElGrupo) {
+            listaAlumnos.add(Alumno(generarNombreDeAlumnoRandom()))
+        }
+
+        return listaAlumnos
+    }
+
+    private fun generarNombreDeAlumnoRandom(): String {
         val allowedChars = ('A'..'Z') + ('a'..'z')
-        return (1..length)
+        return (1..5)
             .map { allowedChars.random() }
             .joinToString("")
     }
 
-    fun createRandomGroup() {
-        val gruposAndroid = mutableListOf<Grupo>()
-        val listaAlumnos1 = mutableListOf<Alumno>()
-        val listaAlumnos2 = mutableListOf<Alumno>()
-        listaAlumnos1.add(Alumno("Emilio"))
-        listaAlumnos2.add(Alumno("Ricardo"))
-        gruposAndroid.add(Grupo("1er Grupo Android", listaAlumnos1))
-        gruposAndroid.add(Grupo("2do Grupo Android", listaAlumnos2))
-        classroomMutableLiveData.postValue(gruposAndroid)
+    private fun generarNombreDeGrupoRandom(): String {
+        return "Grupo " + Random.nextInt(1, 10) + "de Android"
     }
+
+
 }
 
