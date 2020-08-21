@@ -22,7 +22,11 @@ class ClassroomViewModel : ViewModel() {
     }
 
     private fun generarGrupoRandom(): Grupo {
-        return Grupo(generarNombreDeGrupoRandom(), generarListaDeAlumnoRandom())
+        return Grupo(generarNombreDeGrupoRandom(), generarListaDeAlumnoRandom(), generarProfesor())
+    }
+
+    private fun generarProfesor(): Teacher {
+        return Teacher("Teacher " + generarNombreRandom())
     }
 
     private fun generarListaDeAlumnoRandom(): MutableList<Alumno> {
@@ -30,13 +34,13 @@ class ClassroomViewModel : ViewModel() {
         val numeroDeAlumnosEnElGrupo = Random.nextInt(1, 15)
 
         for (i in 1..numeroDeAlumnosEnElGrupo) {
-            listaAlumnos.add(Alumno(generarNombreDeAlumnoRandom()))
+            listaAlumnos.add(Alumno(generarNombreRandom()))
         }
 
         return listaAlumnos
     }
 
-    private fun generarNombreDeAlumnoRandom(): String {
+    private fun generarNombreRandom(): String {
         val allowedChars = ('A'..'Z') + ('a'..'z')
         return (1..5)
             .map { allowedChars.random() }

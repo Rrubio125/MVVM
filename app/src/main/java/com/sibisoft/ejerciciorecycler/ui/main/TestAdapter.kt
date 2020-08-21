@@ -27,6 +27,10 @@ class TestAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
                 val view = layoutInflater.inflate(R.layout.alumn_layout, parent, false)
                 StudentViewHolder(view)
             }
+            TEACHER_TYPE -> {
+                val view = layoutInflater.inflate(R.layout.teacher_layout, parent, false)
+                TeacherViewHolder(view)
+            }
             else -> throw IndexOutOfBoundsException()
         }
     }
@@ -36,10 +40,13 @@ class TestAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
         itemsList.forEach { grupo ->                            // position = 0
             if (position == count) return GROUP_TYPE            // grupo = 0
             count++
+            if (position==count) return TEACHER_TYPE
+            count++
             grupo.listaAlumno.forEach { alumno ->               // alumno = 0
                 if(position == count) return STUDENT_TYPE
                 count++
             }
+
         }
         throw IndexOutOfBoundsException()
     }
@@ -51,6 +58,7 @@ class TestAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
             grupo.listaAlumno.forEach { alumno ->
                 count++
             }
+            count++
         }
         return count
     }
@@ -64,6 +72,9 @@ class TestAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
             is StudentViewHolder -> {
                 holder.bindStudent(item as Alumno)
             }
+            is TeacherViewHolder -> {
+                holder.bindTeacher(item as Teacher)
+            }
         }
     }
 
@@ -71,6 +82,8 @@ class TestAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
         var count = 0
         itemsList.forEach { grupo ->
             if (position == count) return grupo
+            count++
+            if (position== count) return grupo.teacher
             count++
             grupo.listaAlumno.forEach { alumno ->
                 if(position == count) return alumno
@@ -83,6 +96,7 @@ class TestAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
     companion object {
         const val GROUP_TYPE = 1
         const val STUDENT_TYPE = 2
+        const val TEACHER_TYPE = 3
     }
 
 }
