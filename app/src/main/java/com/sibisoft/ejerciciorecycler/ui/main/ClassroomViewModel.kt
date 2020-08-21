@@ -2,6 +2,7 @@ package com.sibisoft.ejerciciorecycler.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kotlin.math.floor
 import kotlin.random.Random
 
 class ClassroomViewModel : ViewModel() {
@@ -26,7 +27,7 @@ class ClassroomViewModel : ViewModel() {
     }
 
     private fun generarProfesor(): Teacher {
-        return Teacher("Teacher " + generarNombreRandom())
+        return Teacher("Teacher " + generarNombresAleatorios())
     }
 
     private fun generarListaDeAlumnoRandom(): MutableList<Alumno> {
@@ -34,18 +35,80 @@ class ClassroomViewModel : ViewModel() {
         val numeroDeAlumnosEnElGrupo = Random.nextInt(1, 15)
 
         for (i in 1..numeroDeAlumnosEnElGrupo) {
-            listaAlumnos.add(Alumno(generarNombreRandom()))
+            listaAlumnos.add(
+                Alumno(
+                    generarNombresAleatorios(),
+                    crearBoleta(),
+                    generarCalificacion()
+                )
+            )
         }
 
         return listaAlumnos
     }
 
-    private fun generarNombreRandom(): String {
-        val allowedChars = ('A'..'Z') + ('a'..'z')
-        return (1..5)
-            .map { allowedChars.random() }
-            .joinToString("")
+    private fun generarCalificacion(): Int {
+        return Random.nextInt(0,10)
     }
+
+    private fun crearBoleta(): Int {
+        return Random.nextInt(2014630000, 2014639999)
+    }
+
+    private fun generarNombresAleatorios(): String {
+        lateinit var nombresAleatorios: String
+        val nombres = arrayOf(
+            "Andrea ",
+            "David ",
+            "Joaquin ",
+            "Martha ",
+            "Juan ",
+            "Jose ",
+            "Manuel ",
+            "Eduardo ",
+            "Monste ",
+            "Maria ",
+            "Omar ",
+            "Rodrigo ",
+            "Romina ",
+            "Lucero ",
+            "Karla ",
+            "Angeles ",
+            "Cristina ",
+            "Asuncion ",
+            "Pilar ",
+            "Teresa "
+        )
+        val apellidos = arrayOf(
+            "Gomez",
+            "Guerrero",
+            "Cardenas",
+            "Rubio",
+            "Hernandez",
+            "Lopez",
+            "Guitierrez",
+            "Rodriguez",
+            "Zamora",
+            "Castillo",
+            "Perez",
+            "Castro",
+            "Lee",
+            "Martinez",
+            "Rangel",
+            "Moreno",
+            "Becerra",
+            "Tapia"
+        )
+        return nombres[Random.nextInt(0, 19)] + apellidos[Random.nextInt(0, 17)]
+    }
+
+//    private fun generarNombreRandom() {
+////        val allowedChars = ('A'..'Z') + ('a'..'z')
+////        return (1..5)
+////            .map { allowedChars.random() }
+////            .joinToString("")
+//        var generarNombresAleatorios : String[] (cantidad: Int)
+//    }
 
     private fun generarNombreDeGrupoRandom(): String {
         return "Grupo " + Random.nextInt(1, 10) + " de Android"

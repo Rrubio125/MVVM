@@ -7,11 +7,15 @@ import com.sibisoft.ejerciciorecycler.R
 import kotlinx.android.synthetic.main.main_fragment.view.*
 
 class StudentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private val textView = itemView.findViewById<TextView>(R.id.student)
+    private val name = itemView.findViewById<TextView>(R.id.student)
+    private val boleta = itemView.findViewById<TextView>(R.id.boleta)
+    private val calif = itemView.findViewById<TextView>(R.id.calif)
+
 
     fun bindStudent(alumno: Alumno){
-        textView.text = alumno.nombre
-
+        name.text = alumno.nombre
+        boleta.text = alumno.boleta.toString()
+        calif.text = alumno.calificacion.toString()
     }
 
 }
