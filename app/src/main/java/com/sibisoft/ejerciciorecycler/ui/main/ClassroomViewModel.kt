@@ -26,8 +26,12 @@ class ClassroomViewModel : ViewModel() {
         return Grupo(generarNombreDeGrupoRandom(), generarListaDeAlumnoRandom(), generarProfesor())
     }
 
-    private fun generarProfesor(): Teacher {
-        return Teacher("Teacher " + generarNombresAleatorios())
+    private fun generarProfesor(): MutableList<Teacher> {
+        val listaDeProfesores = mutableListOf<Teacher>()
+        val numeroDeProfesores = 2
+        for (i in 1..numeroDeProfesores) {
+            listaDeProfesores.add(Teacher( "$i Teacher " + generarNombresAleatorios()))}
+        return listaDeProfesores
     }
 
     private fun generarListaDeAlumnoRandom(): MutableList<Alumno> {
@@ -48,7 +52,7 @@ class ClassroomViewModel : ViewModel() {
     }
 
     private fun generarCalificacion(): Int {
-        return Random.nextInt(0,10)
+        return Random.nextInt(0, 10)
     }
 
     private fun crearBoleta(): Int {
@@ -56,7 +60,6 @@ class ClassroomViewModel : ViewModel() {
     }
 
     private fun generarNombresAleatorios(): String {
-        lateinit var nombresAleatorios: String
         val nombres = arrayOf(
             "Andrea ",
             "David ",
