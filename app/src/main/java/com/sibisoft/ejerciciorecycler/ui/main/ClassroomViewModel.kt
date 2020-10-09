@@ -22,7 +22,7 @@ class ClassroomViewModel : ViewModel() {
     }
 
     private fun createOneNewRandomGroup(): Group {
-        return Group(createRandomGruopNames(), createRandomStudentList(), createTeacher())
+        return Group(createRandomGroupNames(), createRandomStudentList(), createTeacher())
     }
 
     private fun createTeacher(): MutableList<Teacher> {
@@ -112,7 +112,7 @@ class ClassroomViewModel : ViewModel() {
 //        var generarNombresAleatorios : String[] (cantidad: Int)
 //    }
 
-    private fun createRandomGruopNames(): String {
+    private fun createRandomGroupNames(): String {
         return "Grupo " + Random.nextInt(1, 10) + " de Android"
     }
 

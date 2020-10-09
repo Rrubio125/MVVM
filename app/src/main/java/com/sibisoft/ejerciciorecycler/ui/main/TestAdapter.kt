@@ -40,11 +40,11 @@ class TestAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
             if (position == count) return GROUP_TYPE            // grupo = 0
             count++
             repeat(grupo.teacher.size) {
-                if (position==count) return TEACHER_TYPE
+                if (position == count) return TEACHER_TYPE
                 count++
             }
-            grupo.listOfStudent.forEach { alumno ->               // alumno = 0
-                if(position == count) return STUDENT_TYPE
+            repeat(grupo.listOfStudent.size) {                 // alumno = 0
+                if (position == count) return STUDENT_TYPE
                 count++
             }
 
@@ -59,7 +59,7 @@ class TestAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
             repeat(group.teacher.size) {
                 count++
             }
-            group.listOfStudent.forEach { student ->
+            repeat(group.listOfStudent.size) {
                 count++
             }
         }
@@ -81,17 +81,17 @@ class TestAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    private fun getItemInList(position: Int) : Any {
+    private fun getItemInList(position: Int): Any {
         var count = 0
         itemsList.forEach { grupo ->
             if (position == count) return grupo
             count++
-            grupo.teacher.forEach{
+            grupo.teacher.forEach {
                 if (position == count) return it
                 count++
             }
             grupo.listOfStudent.forEach { alumno ->
-                if(position == count) return alumno
+                if (position == count) return alumno
                 count++
             }
         }
